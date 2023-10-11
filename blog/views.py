@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from blog.models import Post # Acrescentar
 from blog.forms import PostModelForm
+from django.contrib import messages
 
 def index(request):
     # return HttpResponse('Olá Django - index')
@@ -68,6 +69,12 @@ class PostCreateView(CreateView):
     # success_url = reverse_lazy('posts_list')
     success_url = reverse_lazy('posts_all') # modifiquei para ir direto no template da aula do dia 20/09
     form_class = PostModelForm
+    success_message = 'Postagem salva com sucesso.'
+    
+    # implementa o método que conclui a ação com sucesso
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(PostCreateView, self).form_valid(request, *args, **kwargs)
 
 @csrf_exempt
 def create_post(request):
