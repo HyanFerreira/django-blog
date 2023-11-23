@@ -1,5 +1,5 @@
 from django.urls import path
-from blog.views import index, ola, post_show, PostDetailView, get_all_posts, get_post, PostCreateView, create_post, PostListView, SobreTemplateView
+from blog.views import index, ola, post_show, PostDetailView, get_all_posts, get_post, PostCreateView, create_post, PostListView, SobreTemplateView, PostUpdateView
 
 urlpatterns = [
     path('', index, name= "home"),
@@ -17,4 +17,5 @@ urlpatterns = [
         SobreTemplateView.as_view(),
         name="about_page"
     ),
+    path('post/<int:pk>/edit', PostUpdateView.as_view(), name="post_edit"),
 ]
